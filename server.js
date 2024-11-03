@@ -9,7 +9,8 @@ app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // Configure views directory
 
-mongoose.connect('mongodb://127.0.0.1:27017/testfyp')
+//mongoose.connect('mongodb://127.0.0.1:27017/testfyp')
+mongoose.connect('mongodb+srv://22026341:fyp1@cluster0.rtrnk.mongodb.net/testfyp')
 const db = mongoose.connection
 db.once('open',()=>{
     console.log("MongoDB connection successful")
@@ -58,6 +59,7 @@ const PatientAppointmentBooking = mongoose.model('EmployeeAppointmentBooking', P
 //const users = mongoose.model("data",userSchema)
 
 const Employee = mongoose.model("Employee", employeeSchema);
+console.log(Employee)
 
 // app.get("/",(req,res)=>{
 //     res.sendFile(path.join(__dirname,'form.html'))
