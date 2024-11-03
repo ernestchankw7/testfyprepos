@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+    <style>
+        /* Add your CSS styling here */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #0000ff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #00008b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, <%= employee.name %>!</h1>
+        <p><strong>Employee ID:</strong> <%= employee.employee_id %></p>
+        <p><strong>Email:</strong> <%= employee.email %></p>
+        <p><strong>Phone:</strong> <%= employee.phone %></p>
+        <p><strong>Company:</strong> <%= employee.company %></p>
+        <p><strong>Package:</strong> <%= employee.package %></p>
+        <a href="/update-employee/<%= employee.employee_id %>" class="btn">Update Details</a>
+        <a href="/booking-form/<%= employee.employee_id %>" class="btn">Book Appointment</a>
+
+    </div>
+</body>
+</html>
