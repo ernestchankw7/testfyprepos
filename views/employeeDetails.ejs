@@ -52,6 +52,7 @@
     </style>
 </head>
 <body>
+    <%- include('navbar', { employeeID: employee.employee_id }) %>
     <div class="container">
         <h1>Welcome, <%= employee.name %>!</h1>
         <p><strong>Employee ID:</strong> <%= employee.employee_id %></p>

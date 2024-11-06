@@ -70,6 +70,7 @@
     </style>
 </head>
 <body>
+    <%- include('navbar', { employeeID: employeeID }) %>
     <div class="container">
         <h1>Book Your Appointment</h1>
         <form id="bookingForm" method="POST" action="/book-appointment">
