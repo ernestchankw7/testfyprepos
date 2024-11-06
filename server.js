@@ -153,37 +153,57 @@ app.get('/check-employee-profile/:employee_id', async (req, res) => {
     }
 });
 
-// Route to serve the booking form
+// Serve booking form
 app.get('/booking-form', (req, res) => {
-    res.render('bookingForm'); // Render bookingForm.ejs
+    res.render('bookingForm');
 });
 
-// Route to handle the appointment booking submission
-app.post('/book-appointment', async (req, res) => {
-    const { employee_id, date, time, reason, specialRequests } = req.body; 
+// Booking form with pre-filled employee ID
+app.get('/booking-form/:employee_id', async (req, res) => {
+    const { employee_id } = req.params;
+    console.log("Received employee_id for booking form:", employee_id);  // Debugging line
 
     try {
-        console.log("Received booking request:", { employee_id, date, time, reason, specialRequests });
+        const employee = await Employee.findOne({ employee_id });
+        if (employee) {
+            res.render('bookingForm', { employeeID: employee.employee_id });
+        } else {
+            res.send("<h1>Employee ID not found.</h1>");
+        }
+    } catch (error) {
+        console.error("Error:", error.message);
+        res.status(500).send("Server error");
+    }
+});
 
-        // Check if date is valid
+// Handle appointment booking submission
+app.post('/book-appointment', async (req, res) => {
+    const { employee_id, date, time, reason, specialRequests } = req.body; 
+    console.log("Booking appointment for employee_id:", employee_id);  // Debugging log
+
+    try {
         const parsedDate = new Date(date);
         if (isNaN(parsedDate)) {
             throw new Error("Invalid date format");
         }
 
-        // Step 1: Find the appointment slot in the appointments collection
-        const appointment = await Appointment.findOne({ date: parsedDate, time });
+        let appointment = await Appointment.findOne({ date: parsedDate, time });
 
         if (!appointment) {
-            return res.status(404).send("<h1>Appointment slot not found.</h1>");
+            const defaultMaxPatients = 5;
+            appointment = new Appointment({
+                date: parsedDate,
+                time,
+                maxPatients: defaultMaxPatients,
+                currentPatients: 0
+            });
+            await appointment.save();
         }
 
-        // Step 2: Check if the appointment has available slots
         if (appointment.currentPatients >= appointment.maxPatients) {
             return res.status(400).send("<h1>No available slots for this appointment.</h1>");
         }
 
-        // Step 3: Create a new patient appointment booking
         const patientAppointment = new PatientAppointmentBooking({
             employee_id,
             date: parsedDate,
@@ -192,16 +212,10 @@ app.post('/book-appointment', async (req, res) => {
             specialRequests,
         });
 
-        console.log("Attempting to save patient appointment:", patientAppointment);
-
-        // Save the booking in PatientAppointmentBooking
         await patientAppointment.save();
-        console.log("Patient appointment saved successfully in PatientAppointmentBooking collection.");
 
-        // Step 4: Update the currentPatients count in the appointments collection
         appointment.currentPatients += 1;
         await appointment.save();
-        console.log("Updated currentPatients in appointments collection.");
 
         res.send(`
             <h1>Appointment booked successfully!</h1>
@@ -212,44 +226,10 @@ app.post('/book-appointment', async (req, res) => {
             <a href="/">Back to Home</a>
         `);
     } catch (error) {
-        console.error("Error details:", error.stack);
+        console.error("Error:", error.stack);
         res.status(500).send(`Server error while booking appointment: ${error.message}`);
     }
 });
-
-// Route to serve the booking form with employee ID
-app.get('/booking-form/:employee_id', async (req, res) => {
-    const { employee_id } = req.params;
-
-    try {
-        // Find employee by ID if needed (optional)
-        const employee = await Employee.findOne({ employee_id });
-
-        if (employee) {
-            // Render the booking form and pass the employee ID
-            res.render('bookingForm', { employeeID: employee.employee_id });
-        } else {
-            res.send("<h1>Employee ID not found.</h1>");
-        }
-    } catch (error) {
-        res.status(500).send("Server error");
-    }
-});
-
-// app.post('/check-employee',async (req,res)=>{
-//     const{name,email,phone,appointment_date,appointment_time,notes} = req.body
-//     const user = new users({
-//         name,
-//         email,
-//         phone,
-//         appointment_date,
-//         appointment_time,
-//         notes
-//     })
-//     await user.save()
-//     console.log(user)
-//     res.send("form send successful")
-// })
 
 app.listen(port,()=>{
     console.log("server started")
