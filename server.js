@@ -9,6 +9,8 @@ app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // Configure views directory
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 //mongoose.connect('mongodb://127.0.0.1:27017/testfyp')
 mongoose.connect('mongodb+srv://22026341:fyp1@cluster0.rtrnk.mongodb.net/testfyp')
 const db = mongoose.connection
