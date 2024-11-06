@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Appointment Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lora', serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: url('LoginImage.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            width: 50%;
+            height: 65%;
+            background-color: #ECEFF1;
+            padding: 70px 40px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .container .title {
+            font-size: 25px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .container .title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #005A9C, #0072B2, #ECEFF1);
+        }
+
+        .user-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .input-box {
+            margin-bottom: 15px;
+            width: calc(50% - 10px);
+            /* Two columns with spacing */
+        }
+
+        .input-box label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .input-box input,
+        .input-box select {
+            height: 60px;
+            width: 100%;
+            outline: none;
+            font-size: 18px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .input-box input:focus,
+        .input-box input:valid,
+        .input-box select:focus {
+            border-color: #9b59b6;
+        }
+
+        .button {
+            width: 100%;
+            height: 65px;
+            margin: 35px 0;
+        }
+
+        .button input {
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #005A9C, #0072B2, #ECEFF1);
+        }
+
+        .button input:hover {
+            background: linear-gradient(-135deg, #005A9C, #0072B2, #ECEFF1);
+        }
+
+        /* Responsive media query for mobile devices */
+        @media(max-width: 584px) {
+            .container {
+                max-width: 100%;
+            }
+
+            .user-details .input-box {
+                width: 100%;
+                /* Full width on mobile */
+            }
+        }
+
+        form {
+            margin-top: 20px;
+            /* Add margin here */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="title"> Health Screening Appointment Booking</div>
+        <method="POST" action="/book-appointment">
+            <div class="user-details">
+                <div class="input-box">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-box">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter your number" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="appointment-date">Preferred Appointment Date</label>
+                    <input type="date" name="appointment_date" id="appointment-date" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="appointment-time">Preferred Appointment Time</label>
+                    <select id="appointment-time" name="appointment_time" required>
+                        <option value="" disabled selected>Select a time</option>
+                    </select>
+                </div>
+
+                <div class="input-box">
+                    <label for="notes">Additional Details</label>
+                    <input type="text" id="notes" name="notes" placeholder="Type Here" required>
+                </div>
+            </div>
+
+            <div class="button">
+                <input type="submit" value="Confirm Appointment">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const selectElement = document.getElementById('appointment-time');
+
+        // Function to populate the select options with time slots
+        function populateTimeSlots() {
+            const startHour = 9; // 9 AM
+            const endHour = 18; // 6 PM
+            const interval = 10; // 10 minutes
+
+            for (let hour = startHour; hour <= endHour; hour++) { // Change '<' to '<='
+                for (let minute = 0; minute < 60; minute += interval) {
+                    // Special handling for 6 PM to only show 6:00 PM
+                    if (hour === endHour && minute > 0) {
+                        break; // Stop adding times after 6:00 PM
+                    }
+
+                    const time = new Date();
+                    time.setHours(hour);
+                    time.setMinutes(minute);
+                    const formattedTime = time.toTimeString().slice(0, 5); // Format as HH:MM
+
+                    // Create option element
+                    const option = document.createElement('option');
+                    option.value = formattedTime;
+                    option.textContent = formattedTime;
+
+                    selectElement.appendChild(option);
+                }
+            }
+        }
+        function setMinDate() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const dd = String(today.getDate()).padStart(2, '0');
+
+            //const formattedDate = ${ yyyy }-${ mm } -${ dd };
+            const formattedDate = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('appointment-date').setAttribute('min', formattedDate);
+        }
+
+        // Call the function to set the minimum date
+        setMinDate();
+
+        // Call the function to populate time slots
+        populateTimeSlots();
+    </script>
+
+
+</body>
+
+</html>

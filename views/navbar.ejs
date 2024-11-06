@@ -1,0 +1,51 @@
+<style>
+    nav {
+        position: absolute;
+        top: 20px;
+        /* Position the navbar 20px from the top */
+        left: 50%;
+        transform: translateX(-50%);
+        /* Center the navbar horizontally */
+    }
+
+    ul {
+        list-style-type: none;
+        /* Remove bullets */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        /* Arrange items in a row */
+    }
+
+    li {
+        margin: 0 20px;
+        /* Spacing between links */
+    }
+
+    a {
+        text-decoration: none;
+        /* Remove underline */
+        color: #333;
+        /* Text color */
+        font-size: 25px;
+        font-weight: bold;
+        /* Make the text bold */
+        padding: 10px;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    a:hover {
+        color: #007bff;
+        /* Blue color on hover */
+        transform: scale(1.1);
+        /* Slight zoom effect */
+    }
+</style>
+
+<nav>
+    <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="">Appointment</a></li>
+        <li><a href="#">Add-Ons</a></li>
+    </ul>
+</nav>

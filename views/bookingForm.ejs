@@ -78,8 +78,14 @@
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
             
-            <label for="time">Time:</label>
-            <input type="time" id="time" name="time" required>
+            <!-- <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required> -->
+            <div class="input-box">
+                <label for="time">Preferred Appointment Time:</label>
+                <select id="time" name="time" required>
+                    <option value="" disabled selected>Select a time</option>
+                </select>
+            </div>
             
             <label for="reason">Reason for Visit:</label>
             <textarea id="reason" name="reason" rows="4" required></textarea>
@@ -90,5 +96,37 @@
             <button type="submit">Book Appointment</button>
         </form>        
     </div>
+    <script>
+        const selectElement = document.getElementById('time');
+
+        // Function to populate the select options with time slots
+        function populateTimeSlots() {
+            const startHour = 9; // 9 AM
+            const endHour = 18; // 6 PM
+            const interval = 10; // 10 minutes
+
+            for (let hour = startHour; hour <= endHour; hour++) { // Change '<' to '<='
+                for (let minute = 0; minute < 60; minute += interval) {
+                    // Special handling for 6 PM to only show 6:00 PM
+                    if (hour === endHour && minute > 0) {
+                        break; // Stop adding times after 6:00 PM
+                    }
+
+                    const time = new Date();
+                    time.setHours(hour);
+                    time.setMinutes(minute);
+                    const formattedTime = time.toTimeString().slice(0, 5); // Format as HH:MM
+
+                    // Create option element
+                    const option = document.createElement('option');
+                    option.value = formattedTime;
+                    option.textContent = formattedTime;
+
+                    selectElement.appendChild(option);
+                }
+            }
+        }
+        populateTimeSlots();
+    </script>
 </body>
 </html>
