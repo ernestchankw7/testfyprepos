@@ -161,7 +161,7 @@ app.get('/booking-form', (req, res) => {
 // Booking form with pre-filled employee ID
 app.get('/booking-form/:employee_id', async (req, res) => {
     const { employee_id } = req.params;
-    console.log("Received employee_id for booking form:", employee_id);  // Debugging line
+    //console.log("Received employee_id for booking form:", employee_id);  // Debugging line
 
     try {
         const employee = await Employee.findOne({ employee_id });
@@ -230,6 +230,24 @@ app.post('/book-appointment', async (req, res) => {
         res.status(500).send(`Server error while booking appointment: ${error.message}`);
     }
 });
+
+// Route to render the Add-Ons page with employee context
+app.get('/add-ons/:employee_id', async (req, res) => {
+    const { employee_id } = req.params;
+    
+    try {
+        const employee = await Employee.findOne({ employee_id });
+        
+        if (employee) {
+            res.render('addOns', { employee }); // Pass employee data to addOns.ejs
+        } else {
+            res.send("<h1>Employee ID not found.</h1>");
+        }
+    } catch (error) {
+        res.status(500).send("Server error");
+    }
+});
+
 
 app.listen(port,()=>{
     console.log("server started")
