@@ -177,58 +177,66 @@ app.get('/booking-form/:employee_id', async (req, res) => {
 });
 
 // Handle appointment booking submission
-app.post('/book-appointment', async (req, res) => {
+app.post('/book-appointment', async (req, res) => { 
     const { employee_id, date, time, reason, specialRequests } = req.body; 
-    console.log("Booking appointment for employee_id:", employee_id);  // Debugging log
-
-    try {
-        const parsedDate = new Date(date);
-        if (isNaN(parsedDate)) {
-            throw new Error("Invalid date format");
-        }
-
-        let appointment = await Appointment.findOne({ date: parsedDate, time });
-
-        if (!appointment) {
-            const defaultMaxPatients = 5;
-            appointment = new Appointment({
-                date: parsedDate,
-                time,
-                maxPatients: defaultMaxPatients,
-                currentPatients: 0
-            });
-            await appointment.save();
-        }
-
-        if (appointment.currentPatients >= appointment.maxPatients) {
-            return res.status(400).send("<h1>No available slots for this appointment.</h1>");
-        }
-
-        const patientAppointment = new PatientAppointmentBooking({
-            employee_id,
-            date: parsedDate,
-            time,
-            reason,
-            specialRequests,
-        });
-
-        await patientAppointment.save();
-
-        appointment.currentPatients += 1;
-        await appointment.save();
-
-        res.send(`
-            <h1>Appointment booked successfully!</h1>
-            <p>Date: ${parsedDate.toDateString()}</p>
-            <p>Time: ${time}</p>
-            <p>Reason for Visit: ${reason}</p>
-            <p>Special Requests: ${specialRequests}</p>
-            <a href="/">Back to Home</a>
-        `);
-    } catch (error) {
-        console.error("Error:", error.stack);
-        res.status(500).send(`Server error while booking appointment: ${error.message}`);
-    }
+ 
+    try { 
+        const parsedDate = new Date(date); 
+        if (isNaN(parsedDate)) { 
+            throw new Error("Invalid date format"); 
+        } 
+ 
+        // Check if the employee has already booked an appointment on the same date 
+        const existingBooking = await PatientAppointmentBooking.findOne({ employee_id, date: parsedDate }); 
+        if (existingBooking) { 
+            return res.status(400).send("<h1>You have already booked an appointment on this date.</h1><a href='/'>Back to Home</a>"); 
+        } 
+ 
+        // Find or create an appointment slot 
+        let appointment = await Appointment.findOne({ date: parsedDate, time }); 
+        if (!appointment) { 
+            const defaultMaxPatients = 5; 
+            appointment = new Appointment({ 
+                date: parsedDate, 
+                time, 
+                maxPatients: defaultMaxPatients, 
+                currentPatients: 0 
+            }); 
+            await appointment.save(); 
+        } 
+ 
+        // Check if there are available slots 
+        if (appointment.currentPatients >= appointment.maxPatients) { 
+            return res.status(400).send("<h1>No available slots for this appointment.</h1>"); 
+        } 
+ 
+        // Save the appointment for the employee 
+        const patientAppointment = new PatientAppointmentBooking({ 
+            employee_id, 
+            date: parsedDate, 
+            time, 
+            reason, 
+            specialRequests, 
+        }); 
+ 
+        await patientAppointment.save(); 
+ 
+        // Update the current patient count for the appointment slot 
+        appointment.currentPatients += 1; 
+        await appointment.save(); 
+ 
+        res.send(` 
+            <h1>Appointment booked successfully!</h1> 
+            <p>Date: ${parsedDate.toDateString()}</p> 
+            <p>Time: ${time}</p> 
+            <p>Reason for Visit: ${reason}</p> 
+            <p>Special Requests: ${specialRequests}</p> 
+            <a href="/">Back to Home</a> 
+        `); 
+    } catch (error) { 
+        console.error("Error:", error.stack); 
+        res.status(500).send(`Server error while booking appointment: ${error.message}`); 
+    } 
 });
 
 // Route to render the Add-Ons page with employee context
