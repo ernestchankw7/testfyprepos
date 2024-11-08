@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +36,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             width: 100%;
+            margin-right: 270px;
         }
 
         /* Catalog item styling */
@@ -86,17 +88,35 @@
 
         /* Sidebar styling */
         .sidebar {
-            position: sticky;
+            /* position: sticky; */
             top: 20px;
             width: 250px;
-            background-color: #fff;
-            border: 1px solid #ddd;
+            background-color: rgba(255, 255, 255, 0);
+            /* Transparent white background */
+            border: 1px solid #000000;
+            /* Light gray border */
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
             align-self: start;
         }
+
+        .sidebar-price {
+            /* position: sticky; */
+            top: 20px;
+            width: 250px;
+            background-color: rgba(255, 255, 255, 0);
+            /* Transparent white background */
+            border: 1px solid #000000;
+            /* Light gray border */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            align-self: start;
+        }
+
 
         .sidebar h3 {
             font-size: 1.5em;
@@ -172,12 +192,25 @@
                 max-width: 300px;
             }
         }
+
+        /* Sidebar container to stack sidebars vertically */
+        .sidebar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            /* Space between sidebars */
+            /* position: sticky; */
+            position: fixed;
+            top: 20px;
+            /* Distance from top of the viewport */
+            right: 20px;
+            /* Adjust as needed to position it on the right */
+            width: 250px;
+        }
     </style>
 </head>
 
 <body>
-    <%- include('navbar', { employeeID: employee.employee_id }) %>
-
     <div class="main-container">
         <!-- Catalog grid for items -->
         <div class="catalog-grid">
@@ -190,16 +223,64 @@
                     <button onclick="openModal(1)">View Details</button>
                 </div>
             </div>
-            <!-- Add more catalog items as needed -->
+            <div class="catalog-item" data-item="2">
+                <img src="" alt="Item 2">
+                <div class="content">
+                    <h3>Item 2</h3>
+                    <p>Description of item 2.</p>
+                    <button onclick="openModal(2)">View Details</button>
+                </div>
+            </div>
+            <div class="catalog-item" data-item="3">
+                <img src="" alt="Item 3">
+                <div class="content">
+                    <h3>Item 3</h3>
+                    <p>Description of item 3.</p>
+                    <button onclick="openModal(3)">View Details</button>
+                </div>
+            </div>
+            <div class="catalog-item" data-item="4">
+                <img src="" alt="Item 4">
+                <div class="content">
+                    <h3>Item 4</h3>
+                    <p>Description of item 4.</p>
+                    <button onclick="openModal(4)">View Details</button>
+                </div>
+            </div>
+            <div class="catalog-item" data-item="5">
+                <img src="" alt="Item 5">
+                <div class="content">
+                    <h3>Item 5</h3>
+                    <p>Description of item 5.</p>
+                    <button onclick="openModal(5)">View Details</button>
+                </div>
+            </div>
+            <div class="catalog-item" data-item="6">
+                <img src="" alt="Item 6">
+                <div class="content">
+                    <h3>Item 6</h3>
+                    <p>Description of item 6.</p>
+                    <button onclick="openModal(6)">View Details</button>
+                </div>
         </div>
 
         <!-- Sidebar for user information -->
-        <div class="sidebar">
-            <h3>Profile Information</h3>
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Gender:</strong> Male</p>
-            <p><strong>Age:</strong> 29</p>
-            <!-- Add more information as needed -->
+        <div class="sidebar-container">
+            <!-- Sidebar for user information -->
+            <div class="sidebar">
+                <h3>Profile Information</h3>
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Gender:</strong> Male</p>
+                <p><strong>Age:</strong> 29</p>
+            </div>
+
+            <!-- Sidebar for price information -->
+            <div class="sidebar-price">
+                <h3>Price Information</h3>
+                <p><strong>Price:</strong> $99.99</p>
+                <p><strong>Discount:</strong> 10%</p>
+                <p><strong>Total:</strong> $89.99</p>
+            </div>
         </div>
     </div>
 
@@ -228,4 +309,5 @@
         }
     </script>
 </body>
+
 </html>
