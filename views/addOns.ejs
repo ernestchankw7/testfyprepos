@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3x2 Catalog Grid</title>
+    <title>3x2 Catalog Grid with Sidebar</title>
     <style>
         /* Basic reset */
         * {
@@ -17,23 +17,29 @@
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             background-color: #f5f5f5;
+            overflow-x: hidden;
         }
 
-        /* Catalog container for 3x2 grid layout */
-        .catalog-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            /* 3 columns */
+        /* Main container to hold the catalog grid and sidebar */
+        .main-container {
+            display: flex;
             gap: 20px;
-            max-width: 1000px;
-            width: 90%;
+            max-width: 1200px;
+            width: 100%;
             padding: 20px;
         }
 
-        /* Individual catalog item */
+        /* Catalog grid styling */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            margin-right: 270px;
+        }
+
+        /* Catalog item styling */
         .catalog-item {
             background: #fff;
             border: 1px solid #ddd;
@@ -80,6 +86,50 @@
             font-size: 1em;
         }
 
+        /* Sidebar styling */
+        .sidebar {
+            /* position: sticky; */
+            top: 20px;
+            width: 250px;
+            background-color: rgba(255, 255, 255, 0);
+            /* Transparent white background */
+            border: 1px solid #000000;
+            /* Light gray border */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            align-self: start;
+        }
+
+        .sidebar-price {
+            /* position: sticky; */
+            top: 20px;
+            width: 250px;
+            background-color: rgba(255, 255, 255, 0);
+            /* Transparent white background */
+            border: 1px solid #000000;
+            /* Light gray border */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            align-self: start;
+        }
+
+
+        .sidebar h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .sidebar p {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
         /* Modal styling */
         .modal {
             display: none;
@@ -124,69 +174,112 @@
         @media (max-width: 768px) {
             .catalog-grid {
                 grid-template-columns: 1fr 1fr;
-                /* 2 columns on smaller screens */
             }
         }
 
         @media (max-width: 480px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .catalog-grid {
                 grid-template-columns: 1fr;
-                /* 1 column on very small screens */
             }
+
+            .sidebar {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Sidebar container to stack sidebars vertically */
+        .sidebar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            /* Space between sidebars */
+            /* position: sticky; */
+            position: fixed;
+            top: 20px;
+            /* Distance from top of the viewport */
+            right: 80px;
+            /* Adjust as needed to position it on the right */
+            width: 250px;
         }
     </style>
 </head>
 
 <body>
-    <%- include('navbar', { employeeID: employee.employee_id }) %>
-    <div class="catalog-grid">
-        <!-- Six catalog items in a 3x2 grid layout -->
-        <div class="catalog-item" data-item="1">
-            <img src="/LoginImage.jpg" alt="Item 1">
-            <div class="content">
-                <h3>Item 1</h3>
-                <p>Description of item 1.</p>
-                <button onclick="openModal(1)">View Details</button>
+    <div class="main-container">
+        <!-- Catalog grid for items -->
+        <div class="catalog-grid">
+            <!-- Six catalog items in a 3x2 grid layout -->
+            <div class="catalog-item" data-item="1">
+                <img src="/LoginImage.jpg" alt="Item 1">
+                <div class="content">
+                    <h3>Item 1</h3>
+                    <p>Description of item 1.</p>
+                    <button onclick="openModal(1)">View Details</button>
+                </div>
             </div>
-        </div>
-        <div class="catalog-item" data-item="2">
-            <img src="" alt="Item 2">
-            <div class="content">
-                <h3>Item 2</h3>
-                <p>Description of item 2.</p>
-                <button onclick="openModal(2)">View Details</button>
+            <div class="catalog-item" data-item="2">
+                <img src="" alt="Item 2">
+                <div class="content">
+                    <h3>Item 2</h3>
+                    <p>Description of item 2.</p>
+                    <button onclick="openModal(2)">View Details</button>
+                </div>
             </div>
-        </div>
-        <div class="catalog-item" data-item="3">
-            <img src="" alt="Item 3">
-            <div class="content">
-                <h3>Item 3</h3>
-                <p>Description of item 3.</p>
-                <button onclick="openModal(3)">View Details</button>
+            <div class="catalog-item" data-item="3">
+                <img src="" alt="Item 3">
+                <div class="content">
+                    <h3>Item 3</h3>
+                    <p>Description of item 3.</p>
+                    <button onclick="openModal(3)">View Details</button>
+                </div>
             </div>
-        </div>
-        <div class="catalog-item" data-item="4">
-            <img src="" alt="Item 4">
-            <div class="content">
-                <h3>Item 4</h3>
-                <p>Description of item 4.</p>
-                <button onclick="openModal(4)">View Details</button>
+            <div class="catalog-item" data-item="4">
+                <img src="" alt="Item 4">
+                <div class="content">
+                    <h3>Item 4</h3>
+                    <p>Description of item 4.</p>
+                    <button onclick="openModal(4)">View Details</button>
+                </div>
             </div>
-        </div>
-        <div class="catalog-item" data-item="5">
-            <img src="" alt="Item 5">
-            <div class="content">
-                <h3>Item 5</h3>
-                <p>Description of item 5.</p>
-                <button onclick="openModal(5)">View Details</button>
+            <div class="catalog-item" data-item="5">
+                <img src="" alt="Item 5">
+                <div class="content">
+                    <h3>Item 5</h3>
+                    <p>Description of item 5.</p>
+                    <button onclick="openModal(5)">View Details</button>
+                </div>
             </div>
+            <div class="catalog-item" data-item="6">
+                <img src="" alt="Item 6">
+                <div class="content">
+                    <h3>Item 6</h3>
+                    <p>Description of item 6.</p>
+                    <button onclick="openModal(6)">View Details</button>
+                </div>
         </div>
-        <div class="catalog-item" data-item="6">
-            <img src="" alt="Item 6">
-            <div class="content">
-                <h3>Item 6</h3>
-                <p>Description of item 6.</p>
-                <button onclick="openModal(6)">View Details</button>
+
+        <!-- Sidebar for user information -->
+        <div class="sidebar-container">
+            <!-- Sidebar for user information -->
+            <div class="sidebar">
+                <h3>Profile Information</h3>
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Gender:</strong> Male</p>
+                <p><strong>Age:</strong> 29</p>
+            </div>
+
+            <!-- Sidebar for price information -->
+            <div class="sidebar-price">
+                <h3>Price Information</h3>
+                <p><strong>Price:</strong> $99.99</p>
+                <p><strong>Discount:</strong> 10%</p>
+                <p><strong>Total:</strong> $89.99</p>
             </div>
         </div>
     </div>
@@ -215,7 +308,6 @@
             document.getElementById('modal').style.display = 'none';
         }
     </script>
-
 </body>
 
 </html>
