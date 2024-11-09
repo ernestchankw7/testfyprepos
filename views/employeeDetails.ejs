@@ -49,6 +49,12 @@
         .btn:hover {
             background-color: #00008b;
         }
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -60,8 +66,14 @@
         <p><strong>Phone:</strong> <%= employee.phone %></p>
         <p><strong>Company:</strong> <%= employee.company %></p>
         <p><strong>Package:</strong> <%= employee.package %></p>
-        <a href="/update-employee/<%= employee.employee_id %>" class="btn">Update Details</a>
+        <!-- <a href="/update-employee/<%= employee.employee_id %>" class="btn">Update Details</a>
         <a href="/booking-form/<%= employee.employee_id %>" class="btn">Book Appointment</a>
+        <a href="/" class="btn signout-btn">Sign Out</a> -->
+        <div class="button-container">
+            <a href="/update-employee/<%= employee.employee_id %>" class="btn">Update Details</a>
+            <a href="/booking-form/<%= employee.employee_id %>" class="btn">Book Appointment</a>
+            <a href="/" class="btn signout-btn">Sign Out</a>
+        </div>
 
     </div>
 </body>

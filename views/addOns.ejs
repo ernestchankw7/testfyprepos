@@ -130,8 +130,10 @@
         }
 
         #selected-items {
-            max-height: 150px; /* Limit height of selected items section */
-            overflow-y: auto; /* Enable vertical scroll */
+            max-height: 150px;
+            /* Limit height of selected items section */
+            overflow-y: auto;
+            /* Enable vertical scroll */
             margin-top: 10px;
             border-top: 1px solid #ddd;
             padding-top: 10px;
@@ -277,207 +279,211 @@
 
 <body>
     <%- include('navbar', { employeeID: employee.employee_id }) %>
-    <div class="main-container">
-        <!-- Catalog grid for items -->
-        <div class="catalog-grid">
-            <!-- Six catalog items in a 3x2 grid layout -->
-            <div class="catalog-item" data-item="1">
-                <img src="/LoginImage.jpg" alt="Item 1">
-                <div class="content">
-                    <h3>Basic Test package</h3>
-                    <p>These tests included are free of charge.</p>
-                    <!-- <button onclick="openModal(1)">View Details</button> -->
-                    <button class="view-button" onclick="openModal(1)">View Details</button>
-                    <div class="add-button-container">
-                        <button class="add-button" id="add-button-1" onclick="addToCart(1)" disabled>Add</button>
-                        <span class="price">$0.00</span>
+        <div class="main-container">
+            <!-- Catalog grid for items -->
+            <div class="catalog-grid">
+                <!-- Six catalog items in a 3x2 grid layout -->
+                <div class="catalog-item" data-item="1">
+                    <img src="/LoginImage.jpg" alt="Item 1">
+                    <div class="content">
+                        <h3>Basic Test package</h3>
+                        <p>These tests included are free of charge.</p>
+                        <!-- <button onclick="openModal(1)">View Details</button> -->
+                        <button class="view-button" onclick="openModal(1)">View Details</button>
+                        <div class="add-button-container">
+                            <button class="add-button" id="add-button-1" onclick="addToCart(1)" disabled>Add</button>
+                            <span class="price">$0.00</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="catalog-item" data-item="2">
-                <img src="/LoginImage.jpg" alt="Item 2">
-                <div class="content">
-                    <h3>Kidney function test</h3>
-                    <p>Evaluates how well your kidneys are working by measuring levels of waste products and
-                        electrolytes in your blood.</p>
-                    <button class="view-button" onclick="openModal(2)">View Details</button>
-                    <div class="add-button-container">
-                        <button class="add-button" id="add-button-2" onclick="addToCart(2)">Add</button>
-                        <span class="price">$99.00</span>
+                <div class="catalog-item" data-item="2">
+                    <img src="/LoginImage.jpg" alt="Item 2">
+                    <div class="content">
+                        <h3>Kidney function test</h3>
+                        <p>Evaluates how well your kidneys are working by measuring levels of waste products and
+                            electrolytes in your blood.</p>
+                        <button class="view-button" onclick="openModal(2)">View Details</button>
+                        <div class="add-button-container">
+                            <button class="add-button" id="add-button-2" onclick="addToCart(2)">Add</button>
+                            <span class="price">$99.00</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="catalog-item" data-item="3">
-                <img src="/LoginImage.jpg" alt="Item 3">
-                <div class="content">
-                    <h3>HIV test</h3>
-                    <p>Checks for the presence of the Human Immunodeficiency Virus, which can lead to AIDS if left
-                        untreated.</p>
-                    <button class="view-button" onclick="openModal(3)">View Details</button>
-                    <div class="add-button-container">
-                        <button class="add-button" id="add-button-3" onclick="addToCart(3)">Add</button>
-                        <span class="price">$79.00</span>
+                <div class="catalog-item" data-item="3">
+                    <img src="/LoginImage.jpg" alt="Item 3">
+                    <div class="content">
+                        <h3>HIV test</h3>
+                        <p>Checks for the presence of the Human Immunodeficiency Virus, which can lead to AIDS if left
+                            untreated.</p>
+                        <button class="view-button" onclick="openModal(3)">View Details</button>
+                        <div class="add-button-container">
+                            <button class="add-button" id="add-button-3" onclick="addToCart(3)">Add</button>
+                            <span class="price">$79.00</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="catalog-item" data-item="4">
-                <img src="/LoginImage.jpg" alt="Item 4">
-                <div class="content">
-                    <h3>Electrocardiogram</h3>
-                    <p>Records the electrical activity of your heart to check for irregular heartbeats, heart attacks,
-                        or other heart conditions.</p>
-                    <button class="view-button" onclick="openModal(4)">View Details</button>
-                    <div class="add-button-container">
-                        <button class="add-button" id="add-button-4" onclick="addToCart(4)">Add</button>
-                        <span class="price">$190.00</span>
+                <div class="catalog-item" data-item="4">
+                    <img src="/LoginImage.jpg" alt="Item 4">
+                    <div class="content">
+                        <h3>Electrocardiogram</h3>
+                        <p>Records the electrical activity of your heart to check for irregular heartbeats, heart
+                            attacks,
+                            or other heart conditions.</p>
+                        <button class="view-button" onclick="openModal(4)">View Details</button>
+                        <div class="add-button-container">
+                            <button class="add-button" id="add-button-4" onclick="addToCart(4)">Add</button>
+                            <span class="price">$190.00</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="catalog-item" data-item="5">
-                <img src="/LoginImage.jpg" alt="Item 5">
-                <div class="content">
-                    <h3>Lipid test</h3>
-                    <p>Measures cholesterol and triglyceride levels in your blood, helping assess heart disease risk.
-                    </p>
-                    <button class="view-button" onclick="openModal(5)">View Details</button>
-                    <div class="add-button-container">
-                        <button class="add-button" id="add-button-5" onclick="addToCart(5)">Add</button>
-                        <span class="price">$45.00</span>
+                <div class="catalog-item" data-item="5">
+                    <img src="/LoginImage.jpg" alt="Item 5">
+                    <div class="content">
+                        <h3>Lipid test</h3>
+                        <p>Measures cholesterol and triglyceride levels in your blood, helping assess heart disease
+                            risk.
+                        </p>
+                        <button class="view-button" onclick="openModal(5)">View Details</button>
+                        <div class="add-button-container">
+                            <button class="add-button" id="add-button-5" onclick="addToCart(5)">Add</button>
+                            <span class="price">$45.00</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="catalog-item" data-item="6">
-                <img src="/LoginImage.jpg" alt="Item 6">
-                <div class="content">
-                    <h3>MRI Scan</h3>
-                    <p>An MRI Scan uses strong magnetic fields and radio waves to create detailed images of organs and
-                        tissues within your body.</p>
-                    <button class="view-button" onclick="openModal(6)">View Details</button>
-                    <div class="add-button-container">
-                        <button class="add-button" id="add-button-6" onclick="addToCart(6)">Add</button>
-                        <span class="price">$280.00</span>
+                <div class="catalog-item" data-item="6">
+                    <img src="/LoginImage.jpg" alt="Item 6">
+                    <div class="content">
+                        <h3>MRI Scan</h3>
+                        <p>An MRI Scan uses strong magnetic fields and radio waves to create detailed images of organs
+                            and
+                            tissues within your body.</p>
+                        <button class="view-button" onclick="openModal(6)">View Details</button>
+                        <div class="add-button-container">
+                            <button class="add-button" id="add-button-6" onclick="addToCart(6)">Add</button>
+                            <span class="price">$280.00</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Sidebar for user information -->
-            <div class="sidebar-container">
                 <!-- Sidebar for user information -->
-                <div class="sidebar">
-                    <h3>Profile Information</h3>
-                    <p><strong>Name:</strong>
-                        <%= employee.name %>
-                    </p>
-                    <p><strong>Employee ID:</strong>
-                        <%= employee.employee_id %>
-                    </p>
-                    <p><strong>Email:</strong>
-                        <%= employee.email %>
-                    </p>
-                    <p><strong>Phone:</strong>
-                        <%= employee.phone %>
-                    </p>
-                    <p><strong>Company:</strong>
-                        <%= employee.company %>
-                    </p>
-                    <p><strong>Package:</strong>
-                        <%= employee.package %>
-                    </p>
-                </div>
+                <div class="sidebar-container">
+                    <!-- Sidebar for user information -->
+                    <div class="sidebar">
+                        <h3>Profile Information</h3>
+                        <p><strong>Name:</strong>
+                            <%= employee.name %>
+                        </p>
+                        <p><strong>Employee ID:</strong>
+                            <%= employee.employee_id %>
+                        </p>
+                        <p><strong>Email:</strong>
+                            <%= employee.email %>
+                        </p>
+                        <p><strong>Phone:</strong>
+                            <%= employee.phone %>
+                        </p>
+                        <p><strong>Company:</strong>
+                            <%= employee.company %>
+                        </p>
+                        <p><strong>Package:</strong>
+                            <%= employee.package %>
+                        </p>
+                    </div>
 
-                <!-- Sidebar for price information -->
-                <div class="sidebar-price" id="price-info">
-                    <h3>Price Information</h3>
-                    <p id="selected-items"><strong>Selected Items:</strong> Basic Test Package</p>
-                    <p id="total-price"><strong>Total Price:</strong> $0.00</p>
-                    <button class="proceed-button" id="action-button">Proceed</button>
+                    <!-- Sidebar for price information -->
+                    <div class="sidebar-price" id="price-info">
+                        <h3>Price Information</h3>
+                        <p id="selected-items"><strong>Selected Items:</strong> Basic Test Package</p>
+                        <p id="total-price"><strong>Total Price:</strong> $0.00</p>
+                        <button class="proceed-button" id="action-button">Proceed</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Modal popup for each item -->
-        <div class="modal" id="modal">
-            <div class="modal-content">
-                <h2 id="modal-title">Item Title</h2>
-                <p id="modal-description">Item Description</p>
-                <button class="close-modal" onclick="closeModal()">Close</button>
+            <!-- Modal popup for each item -->
+            <div class="modal" id="modal">
+                <div class="modal-content">
+                    <h2 id="modal-title">Item Title</h2>
+                    <p id="modal-description">Item Description</p>
+                    <button class="close-modal" onclick="closeModal()">Close</button>
+                </div>
             </div>
-        </div>
 
-        <script>
-            const itemDetails = {
-                1: { title: "Basic Test Package", description: "Free of charge", price: 0 },
-                2: { title: "Kidney Function Test", description: "Evaluates kidney function.", price: 99 },
-                3: { title: "HIV Test", description: "Checks for HIV.", price: 79 },
-                4: { title: "Electrocardiogram", description: "Records heart's electrical activity.", price: 190 },
-                5: { title: "Lipid Test", description: "Measures cholesterol levels.", price: 45 },
-                6: { title: "MRI Scan", description: "Detailed body images.", price: 280 }
-            };
-    
-            const cart = { selectedItems: { 1: true }, totalPrice: 0 };
-    
-            updatePriceDisplay();
-    
-            function openModal(item) {
-                document.getElementById('modal-title').textContent = itemDetails[item].title;
-                document.getElementById('modal-description').textContent = itemDetails[item].description;
-                document.getElementById('modal').style.display = 'flex';
-            }
-    
-            function closeModal() {
-                document.getElementById('modal').style.display = 'none';
-            }
-    
-            function addToCart(itemId) {
-                if (!cart.selectedItems[itemId]) {
-                    cart.selectedItems[itemId] = true;
-                    cart.totalPrice += itemDetails[itemId].price;
-                    updatePriceDisplay();
-                    document.getElementById(`add-button-${itemId}`).disabled = true;
+            <script>
+                const itemDetails = {
+                    1: { title: "Basic Test Package", description: "Free of charge", price: 0 },
+                    2: { title: "Kidney Function Test", description: "Evaluates kidney function.", price: 99 },
+                    3: { title: "HIV Test", description: "Checks for HIV.", price: 79 },
+                    4: { title: "Electrocardiogram", description: "Records heart's electrical activity.", price: 190 },
+                    5: { title: "Lipid Test", description: "Measures cholesterol levels.", price: 45 },
+                    6: { title: "MRI Scan", description: "Detailed body images.", price: 280 }
+                };
+
+                const cart = { selectedItems: { 1: true }, totalPrice: 0 };
+
+                updatePriceDisplay();
+
+                function openModal(item) {
+                    document.getElementById('modal-title').textContent = itemDetails[item].title;
+                    document.getElementById('modal-description').textContent = itemDetails[item].description;
+                    document.getElementById('modal').style.display = 'flex';
                 }
-            }
-    
-            function removeFromCart(itemId) {
-                if (itemId !== 1 && cart.selectedItems[itemId]) {
-                    delete cart.selectedItems[itemId];
-                    cart.totalPrice -= itemDetails[itemId].price;
-                    updatePriceDisplay();
-                    document.getElementById(`add-button-${itemId}`).disabled = false;
+
+                function closeModal() {
+                    document.getElementById('modal').style.display = 'none';
                 }
-            }
-    
-            function updatePriceDisplay() {
-                const selectedItemsContainer = document.getElementById('selected-items');
-                selectedItemsContainer.innerHTML = `<strong>Selected Items:</strong>`; // Clear current content
-    
-                Object.keys(cart.selectedItems).forEach(id => {
-                    const item = itemDetails[id];
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'selected-item';
-    
-                    // Only show the "Remove" button for items other than Basic Test Package (item 1)
-                    if (id == 1) {
-                        itemDiv.innerHTML = `<span>${item.title} - $${item.price.toFixed(2)}</span>`;
-                    } else {
-                        itemDiv.innerHTML = `
+
+                function addToCart(itemId) {
+                    if (!cart.selectedItems[itemId]) {
+                        cart.selectedItems[itemId] = true;
+                        cart.totalPrice += itemDetails[itemId].price;
+                        updatePriceDisplay();
+                        document.getElementById(`add-button-${itemId}`).disabled = true;
+                    }
+                }
+
+                function removeFromCart(itemId) {
+                    if (itemId !== 1 && cart.selectedItems[itemId]) {
+                        delete cart.selectedItems[itemId];
+                        cart.totalPrice -= itemDetails[itemId].price;
+                        updatePriceDisplay();
+                        document.getElementById(`add-button-${itemId}`).disabled = false;
+                    }
+                }
+
+                function updatePriceDisplay() {
+                    const selectedItemsContainer = document.getElementById('selected-items');
+                    selectedItemsContainer.innerHTML = `<strong>Selected Items:</strong>`; // Clear current content
+
+                    Object.keys(cart.selectedItems).forEach(id => {
+                        const item = itemDetails[id];
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'selected-item';
+
+                        // Only show the "Remove" button for items other than Basic Test Package (item 1)
+                        if (id == 1) {
+                            itemDiv.innerHTML = `<span>${item.title} - $${item.price.toFixed(2)}</span>`;
+                        } else {
+                            itemDiv.innerHTML = `
                             <span>${item.title} - $${item.price.toFixed(2)}</span>
                             <button class="remove-button" onclick="removeFromCart(${id})">Remove</button>
                         `;
-                    }
-    
-                    selectedItemsContainer.appendChild(itemDiv);
-                });
-    
-                // Update total price display
-                const totalPriceElement = document.getElementById('total-price');
-                totalPriceElement.innerHTML = `<strong>Total Price:</strong> $${cart.totalPrice.toFixed(2)}`;
-    
-                // Update action button text to "Pay" if items other than Basic Test Package are selected
-                const actionButton = document.getElementById('action-button');
-                const isOnlyBasicPackage = Object.keys(cart.selectedItems).length === 1 && cart.selectedItems[1];
-                actionButton.textContent = isOnlyBasicPackage ? "Proceed" : "Pay";
-            }
-        </script>
+                        }
+
+                        selectedItemsContainer.appendChild(itemDiv);
+                    });
+
+                    // Update total price display
+                    const totalPriceElement = document.getElementById('total-price');
+                    totalPriceElement.innerHTML = `<strong>Total Price:</strong> $${cart.totalPrice.toFixed(2)}`;
+
+                    // Update action button text to "Pay" if items other than Basic Test Package are selected
+                    const actionButton = document.getElementById('action-button');
+                    const isOnlyBasicPackage = Object.keys(cart.selectedItems).length === 1 && cart.selectedItems[1];
+                    actionButton.textContent = isOnlyBasicPackage ? "Proceed" : "Pay";
+                }
+            </script>
+        </div>
 </body>
 
 </html>

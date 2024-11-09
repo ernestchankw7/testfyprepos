@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
+const session = require('express-session');
 const port = 3019
 
 const app = express();
@@ -11,21 +12,19 @@ app.set('views', path.join(__dirname, 'views')); // Configure views directory
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+    secret: 'fyp1', // Replace with a secure key for production
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+}));
+
 //mongoose.connect('mongodb://127.0.0.1:27017/testfyp')
 mongoose.connect('mongodb+srv://22026341:fyp1@cluster0.rtrnk.mongodb.net/testfyp')
 const db = mongoose.connection
 db.once('open',()=>{
     console.log("MongoDB connection successful")
 })
-
-// const userSchema = new mongoose.Schema({
-//     name:String,
-//     email:String,
-//     phone:String,
-//     appointment_date:String,
-//     appointment_time:String,
-//     notes:String
-// })
 
 const appointmentSchema = new mongoose.Schema({
     date: { type: Date, required: true },
@@ -255,7 +254,6 @@ app.get('/add-ons/:employee_id', async (req, res) => {
         res.status(500).send("Server error");
     }
 });
-
 
 app.listen(port,()=>{
     console.log("server started")
