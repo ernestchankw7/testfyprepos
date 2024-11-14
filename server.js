@@ -5,7 +5,7 @@ const session = require('express-session');
 const port = 3019
 
 const app = express();
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // Configure views directory
@@ -22,7 +22,7 @@ app.use(session({
 //mongoose.connect('mongodb://127.0.0.1:27017/testfyp')
 mongoose.connect('mongodb+srv://22026341:fyp1@cluster0.rtrnk.mongodb.net/testfyp')
 const db = mongoose.connection
-db.once('open',()=>{
+db.once('open', () => {
     console.log("MongoDB connection successful")
 })
 
@@ -65,8 +65,8 @@ console.log(Employee)
 // app.get("/",(req,res)=>{
 //     res.sendFile(path.join(__dirname,'form.html'))
 // })
-app.get("/",(req,res)=>{
-    res.sendFile(path.join(__dirname,'employeeForm.html'))
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, 'employeeForm.html'))
 })
 
 // Route to check employee ID and display details if found
@@ -176,54 +176,54 @@ app.get('/booking-form/:employee_id', async (req, res) => {
 });
 
 // Handle appointment booking submission
-app.post('/book-appointment', async (req, res) => { 
-    const { employee_id, date, time, reason, specialRequests } = req.body; 
- 
-    try { 
-        const parsedDate = new Date(date); 
-        if (isNaN(parsedDate)) { 
-            throw new Error("Invalid date format"); 
-        } 
- 
+app.post('/book-appointment', async (req, res) => {
+    const { employee_id, date, time, reason, specialRequests } = req.body;
+
+    try {
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate)) {
+            throw new Error("Invalid date format");
+        }
+
         // Check if the employee has already booked an appointment on the same date 
-        const existingBooking = await PatientAppointmentBooking.findOne({ employee_id, date: parsedDate }); 
-        if (existingBooking) { 
-            return res.status(400).send("<h1>You have already booked an appointment on this date.</h1><a href='/'>Back to Home</a>"); 
-        } 
- 
+        const existingBooking = await PatientAppointmentBooking.findOne({ employee_id, date: parsedDate });
+        if (existingBooking) {
+            return res.status(400).send("<h1>You have already booked an appointment on this date.</h1><a href='/'>Back to Home</a>");
+        }
+
         // Find or create an appointment slot 
-        let appointment = await Appointment.findOne({ date: parsedDate, time }); 
-        if (!appointment) { 
-            const defaultMaxPatients = 5; 
-            appointment = new Appointment({ 
-                date: parsedDate, 
-                time, 
-                maxPatients: defaultMaxPatients, 
-                currentPatients: 0 
-            }); 
-            await appointment.save(); 
-        } 
- 
+        let appointment = await Appointment.findOne({ date: parsedDate, time });
+        if (!appointment) {
+            const defaultMaxPatients = 5;
+            appointment = new Appointment({
+                date: parsedDate,
+                time,
+                maxPatients: defaultMaxPatients,
+                currentPatients: 0
+            });
+            await appointment.save();
+        }
+
         // Check if there are available slots 
-        if (appointment.currentPatients >= appointment.maxPatients) { 
-            return res.status(400).send("<h1>No available slots for this appointment.</h1>"); 
-        } 
- 
+        if (appointment.currentPatients >= appointment.maxPatients) {
+            return res.status(400).send("<h1>No available slots for this appointment.</h1>");
+        }
+
         // Save the appointment for the employee 
-        const patientAppointment = new PatientAppointmentBooking({ 
-            employee_id, 
-            date: parsedDate, 
-            time, 
-            reason, 
-            specialRequests, 
-        }); 
- 
-        await patientAppointment.save(); 
- 
+        const patientAppointment = new PatientAppointmentBooking({
+            employee_id,
+            date: parsedDate,
+            time,
+            reason,
+            specialRequests,
+        });
+
+        await patientAppointment.save();
+
         // Update the current patient count for the appointment slot 
-        appointment.currentPatients += 1; 
-        await appointment.save(); 
- 
+        appointment.currentPatients += 1;
+        await appointment.save();
+
         res.send(` 
             <h1>Appointment booked successfully!</h1> 
             <p>Date: ${parsedDate.toDateString()}</p> 
@@ -231,20 +231,20 @@ app.post('/book-appointment', async (req, res) => {
             <p>Reason for Visit: ${reason}</p> 
             <p>Special Requests: ${specialRequests}</p> 
             <a href="/">Back to Home</a> 
-        `); 
-    } catch (error) { 
-        console.error("Error:", error.stack); 
-        res.status(500).send(`Server error while booking appointment: ${error.message}`); 
-    } 
+        `);
+    } catch (error) {
+        console.error("Error:", error.stack);
+        res.status(500).send(`Server error while booking appointment: ${error.message}`);
+    }
 });
 
-// Route to render the Add-Ons page with employee context
+//Route to render the Add-Ons page with employee context
 app.get('/add-ons/:employee_id', async (req, res) => {
     const { employee_id } = req.params;
-    
+
     try {
         const employee = await Employee.findOne({ employee_id });
-        
+
         if (employee) {
             res.render('addOns', { employee }); // Pass employee data to addOns.ejs
         } else {
@@ -255,6 +255,6 @@ app.get('/add-ons/:employee_id', async (req, res) => {
     }
 });
 
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log("server started")
 })
