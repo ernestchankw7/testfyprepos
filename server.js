@@ -255,6 +255,23 @@ app.get('/add-ons/:employee_id', async (req, res) => {
     }
 });
 
+app.get('/summary/:employee_id', async (req, res) => {
+    const { employee_id } = req.params;
+
+    try {
+        const employee = await Employee.findOne({ employee_id });
+
+        if (employee) {
+            // Pass employee data to the summary.ejs template
+            res.render('summary', { employee });
+        } else {
+            res.send("<h1>Employee ID not found.</h1>");
+        }
+    } catch (error) {
+        res.status(500).send("Server error");
+    }
+});
+
 app.listen(port, () => {
     console.log("server started")
 })

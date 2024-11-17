@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3x2 Catalog Grid with Sidebar</title>
+    <title>Test Items</title>
     <style>
         /* Basic reset */
         * {
@@ -52,8 +52,20 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            /* Ensures items are of equal height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
+
+        .catalog-item .content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+            /* Ensures buttons are aligned */
+        }
+
 
         .catalog-item:hover {
             transform: scale(1.05);
@@ -89,7 +101,7 @@
             padding: 10px 20px;
             border: none;
             border-radius: 4px;
-            background-color: #007bff;
+            background-color: #0072B2;
             color: #fff;
             cursor: pointer;
             font-size: 1em;
@@ -139,7 +151,6 @@
             padding-top: 10px;
         }
 
-
         .sidebar h3 {
             font-size: 1.5em;
             margin-bottom: 10px;
@@ -186,7 +197,7 @@
 
         .close-modal {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #0072B2;
             color: #fff;
             border: none;
             cursor: pointer;
@@ -231,23 +242,41 @@
             width: 250px;
         }
 
+        .price {
+            font-weight: bold;
+            /* Makes the price stand out */
+            font-size: 1.1em;
+            /* Slightly increases the font size */
+        }
+
         .view-button {
-            margin-bottom: 70px;
-            /* Space between View Details and Add button */
+            margin-top: auto;
+            /* Pushes the button to the bottom of the content */
             align-self: center;
-            /* Centers the button horizontally within the container */
-            max-width: 150px;
+            padding: 10px 10px;
+            background-color: #0072B2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
         }
 
         .add-button-container {
             display: flex;
+            /* Use flexbox for alignment */
             justify-content: space-between;
+            /* Spread the Add button and price apart */
             align-items: center;
-            margin-top: auto;
+            /* Vertically align the button and price */
+            /* margin-top: auto; */
+            /* Pushes it to the bottom of the content */
+            padding-top: 30px;
+            /* Adds some padding between content and Add section */
         }
 
         .proceed-button {
-            background-color: #007bff;
+            background-color: #0072B2;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -284,7 +313,7 @@
             <div class="catalog-grid">
                 <!-- Six catalog items in a 3x2 grid layout -->
                 <div class="catalog-item" data-item="1">
-                    <img src="/LoginImage.jpg" alt="Item 1">
+                    <img src="/basicTest.jpg" alt="Item 1">
                     <div class="content">
                         <h3>Basic Test package</h3>
                         <p>These tests included are free of charge.</p>
@@ -297,7 +326,7 @@
                     </div>
                 </div>
                 <div class="catalog-item" data-item="2">
-                    <img src="/LoginImage.jpg" alt="Item 2">
+                    <img src="/KidneyFunction.jpg" alt="Item 2">
                     <div class="content">
                         <h3>Kidney function test</h3>
                         <p>Evaluates how well your kidneys are working by measuring levels of waste products and
@@ -310,7 +339,7 @@
                     </div>
                 </div>
                 <div class="catalog-item" data-item="3">
-                    <img src="/LoginImage.jpg" alt="Item 3">
+                    <img src="/HIV.jpg" alt="Item 3">
                     <div class="content">
                         <h3>HIV test</h3>
                         <p>Checks for the presence of the Human Immunodeficiency Virus, which can lead to AIDS if left
@@ -323,7 +352,7 @@
                     </div>
                 </div>
                 <div class="catalog-item" data-item="4">
-                    <img src="/LoginImage.jpg" alt="Item 4">
+                    <img src="/electro.jpg" alt="Item 4">
                     <div class="content">
                         <h3>Electrocardiogram</h3>
                         <p>Records the electrical activity of your heart to check for irregular heartbeats, heart
@@ -337,7 +366,7 @@
                     </div>
                 </div>
                 <div class="catalog-item" data-item="5">
-                    <img src="/LoginImage.jpg" alt="Item 5">
+                    <img src="/Lipid.png" alt="Item 5">
                     <div class="content">
                         <h3>Lipid test</h3>
                         <p>Measures cholesterol and triglyceride levels in your blood, helping assess heart disease
@@ -351,7 +380,7 @@
                     </div>
                 </div>
                 <div class="catalog-item" data-item="6">
-                    <img src="/LoginImage.jpg" alt="Item 6">
+                    <img src="/MRI.jpg" alt="Item 6">
                     <div class="content">
                         <h3>MRI Scan</h3>
                         <p>An MRI Scan uses strong magnetic fields and radio waves to create detailed images of organs
@@ -399,90 +428,144 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Modal popup for each item -->
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <h2 id="modal-title">Item Title</h2>
-                    <p id="modal-description">Item Description</p>
-                    <button class="close-modal" onclick="closeModal()">Close</button>
-                </div>
+        <!-- Modal popup for each item -->
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <h2 id="modal-title">Item Title</h2>
+                <p id="modal-description">Item Description</p>
+                <button class="close-modal" onclick="closeModal()">Close</button>
             </div>
+        </div>
 
-            <script>
-                const itemDetails = {
-                    1: { title: "Basic Test Package", description: "Free of charge", price: 0 },
-                    2: { title: "Kidney Function Test", description: "Evaluates kidney function.", price: 99 },
-                    3: { title: "HIV Test", description: "Checks for HIV.", price: 79 },
-                    4: { title: "Electrocardiogram", description: "Records heart's electrical activity.", price: 190 },
-                    5: { title: "Lipid Test", description: "Measures cholesterol levels.", price: 45 },
-                    6: { title: "MRI Scan", description: "Detailed body images.", price: 280 }
-                };
+        <script>
+            const itemDetails = {
+                1: { title: "Basic Test Package", description: "Free of charge", price: 0 },
+                2: { title: "Kidney Function Test", description: "Evaluates kidney function.", price: 99, testId: "T002" },
+                3: { title: "HIV Test", description: "Checks for HIV.", price: 79, testId: "T003" },
+                4: { title: "Electrocardiogram", description: "Records heart's electrical activity.", price: 190, testId: "T004" },
+                5: { title: "Lipid Test", description: "Measures cholesterol levels.", price: 45, testId: "T005" },
+                6: { title: "MRI Scan", description: "Detailed body images.", price: 280, testId: "T006" }
+            };
 
-                const cart = { selectedItems: { 1: true }, totalPrice: 0 };
-                updatePriceDisplay();
+            const cart = {
+                selectedItems: { 1: itemDetails[1] }, // Start with full details for item 1
+                totalPrice: 0,
 
-                function openModal(item) {
-                    document.getElementById('modal-title').textContent = itemDetails[item].title;
-                    document.getElementById('modal-description').textContent = itemDetails[item].description;
-                    document.getElementById('modal').style.display = 'flex';
-                }
-
-                function closeModal() {
-                    document.getElementById('modal').style.display = 'none';
-                }
-
-                function addToCart(itemId) {
-                    if (!cart.selectedItems[itemId]) {
-                        cart.selectedItems[itemId] = true;
-                        cart.totalPrice += itemDetails[itemId].price;
-                        updatePriceDisplay();
-                        document.getElementById(`add-button-${itemId}`).disabled = true;
+                addItem(itemId) {
+                    if (!this.selectedItems[itemId]) {
+                        this.selectedItems[itemId] = itemDetails[itemId]; // Store full details
+                        this.totalPrice += itemDetails[itemId].price;
+                        this.save();
                     }
-                }
+                },
+            };
 
-                function removeFromCart(itemId) {
-                    if (itemId !== 1 && cart.selectedItems[itemId]) {
-                        delete cart.selectedItems[itemId];
-                        cart.totalPrice -= itemDetails[itemId].price;
-                        updatePriceDisplay();
-                        document.getElementById(`add-button-${itemId}`).disabled = false;
-                    }
-                }
+            // Load cart state from localStorage
+            window.onload = function () {
+                const savedCart = JSON.parse(localStorage.getItem('cart'));
+                if (savedCart) {
+                    cart.selectedItems = savedCart.selectedItems;
+                    cart.totalPrice = savedCart.totalPrice;
+                    updatePriceDisplay();
 
-                function updatePriceDisplay() {
-                    const selectedItemsContainer = document.getElementById('selected-items');
-                    selectedItemsContainer.innerHTML = `<strong>Selected Items:</strong>`; // Clear current content
-
+                    // Disable buttons for already selected items
                     Object.keys(cart.selectedItems).forEach(id => {
-                        const item = itemDetails[id];
-                        const itemDiv = document.createElement('div');
-                        itemDiv.className = 'selected-item';
+                        if (document.getElementById(`add-button-${id}`)) {
+                            document.getElementById(`add-button-${id}`).disabled = true;
+                        }
+                    });
+                }
+            };
 
-                        // Only show the "Remove" button for items other than Basic Test Package (item 1)
-                        if (id == 1) {
-                            itemDiv.innerHTML = `<span>${item.title} - $${item.price.toFixed(2)}</span>`;
-                        } else {
-                            itemDiv.innerHTML = `
+            // Save cart state to localStorage
+            function updateCartStorage() {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            //updatePriceDisplay();
+
+            function openModal(item) {
+                document.getElementById('modal-title').textContent = itemDetails[item].title;
+                document.getElementById('modal-description').textContent = itemDetails[item].description;
+                document.getElementById('modal').style.display = 'flex';
+            }
+
+            function closeModal() {
+                document.getElementById('modal').style.display = 'none';
+            }
+
+            function addToCart(itemId) {
+                if (!cart.selectedItems[itemId]) {
+                    //cart.selectedItems[itemId] = true; //ORIGINAL
+                    cart.selectedItems[itemId] = itemDetails[itemId]; // Add the item details
+                    cart.totalPrice += itemDetails[itemId].price;
+                    updateCartStorage(); // Persist state
+                    updatePriceDisplay();
+                    document.getElementById(`add-button-${itemId}`).disabled = true;
+                }
+            }
+
+            function removeFromCart(itemId) {
+                if (itemId !== 1 && cart.selectedItems[itemId]) {
+                    delete cart.selectedItems[itemId];
+                    cart.totalPrice -= itemDetails[itemId].price;
+                    updateCartStorage(); // Persist state
+                    updatePriceDisplay();
+                    document.getElementById(`add-button-${itemId}`).disabled = false;
+                }
+            }
+
+            function updatePriceDisplay() {
+                const selectedItemsContainer = document.getElementById('selected-items');
+                selectedItemsContainer.innerHTML = `<strong>Selected Items:</strong>`; // Clear current content
+
+                Object.keys(cart.selectedItems).forEach(id => {
+                    const item = itemDetails[id];
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'selected-item';
+
+                    // Only show the "Remove" button for items other than Basic Test Package (item 1)
+                    if (id == 1) {
+                        itemDiv.innerHTML = `<span>${item.title} - $${item.price.toFixed(2)}</span>`;
+                    } else {
+                        itemDiv.innerHTML = `
                             <span>${item.title} - $${item.price.toFixed(2)}</span>
                             <button class="remove-button" onclick="removeFromCart(${id})">Remove</button>
                         `;
-                        }
+                    }
 
-                        selectedItemsContainer.appendChild(itemDiv);
-                    });
+                    selectedItemsContainer.appendChild(itemDiv);
+                });
 
-                    // Update total price display
-                    const totalPriceElement = document.getElementById('total-price');
-                    totalPriceElement.innerHTML = `<strong>Total Price:</strong> $${cart.totalPrice.toFixed(2)}`;
+                // Update total price display
+                const totalPriceElement = document.getElementById('total-price');
+                totalPriceElement.innerHTML = `<strong>Total Price:</strong> $${cart.totalPrice.toFixed(2)}`;
 
-                    // Update action button text to "Pay" if items other than Basic Test Package are selected
-                    const actionButton = document.getElementById('action-button');
-                    const isOnlyBasicPackage = Object.keys(cart.selectedItems).length === 1 && cart.selectedItems[1];
-                    actionButton.textContent = isOnlyBasicPackage ? "Proceed" : "Pay";
-                }
-            </script>
-        </div>
+                // Update action button text to "Pay" if items other than Basic Test Package are selected
+                const actionButton = document.getElementById('action-button');
+                const isOnlyBasicPackage = Object.keys(cart.selectedItems).length === 1 && cart.selectedItems[1];
+                actionButton.textContent = isOnlyBasicPackage ? "Proceed" : "Pay";
+            }
+
+            document.getElementById('action-button').addEventListener('click', () => {
+                const employeeID = '<%= employee.employee_id %>';
+                const summary = {
+                    items: Object.values(cart.selectedItems).map(item => ({
+                        title: item.title,
+                        price: item.price
+                    })),
+                    totalPrice: cart.totalPrice
+                };
+
+                // Save to localStorage
+                localStorage.setItem('cartSummary', JSON.stringify(summary));
+
+                // Redirect to summary page
+                window.location.href = `/summary/${encodeURIComponent(employeeID)}`;
+            });
+        </script>
 </body>
 
 </html>
