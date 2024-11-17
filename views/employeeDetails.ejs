@@ -72,9 +72,19 @@
         <div class="button-container">
             <a href="/update-employee/<%= employee.employee_id %>" class="btn">Update Details</a>
             <a href="/booking-form/<%= employee.employee_id %>" class="btn">Book Appointment</a>
-            <a href="/" class="btn signout-btn">Sign Out</a>
+            <a href="/" class="btn signout-btn" onclick="clearCartAndSignOut(event)">Sign Out</a>
         </div>
-
     </div>
+    <script>
+        function clearCartAndSignOut(event) {
+            event.preventDefault(); // Prevent the default link behavior
+    
+            // Clear the cart from localStorage
+            localStorage.removeItem('cart');
+    
+            // Redirect to the sign-out route (or home page)
+            window.location.href = "/";
+        }
+    </script>
 </body>
 </html>
