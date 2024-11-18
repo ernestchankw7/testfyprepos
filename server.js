@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
 const session = require('express-session');
+const nodemailer = require('nodemailer');
 const port = 3019
 
 const app = express();
@@ -86,6 +87,14 @@ app.post('/check-employee', async (req, res) => {
     } catch (error) {
         res.status(500).send("Server error");
     }
+});
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // Use your email service
+    auth: {
+        user: 'corphassg@gmail.com', // Replace with your email
+        pass: 'jtaq jhof vvro eldm', // Replace with your email password or app password
+    },
 });
 
 // Route to serve the update form
@@ -224,13 +233,41 @@ app.post('/book-appointment', async (req, res) => {
         appointment.currentPatients += 1;
         await appointment.save();
 
+        // Fetch employee details for email
+        const employee = await Employee.findOne({ employee_id });
+        if (employee) {
+            // Email options
+            const mailOptions = {
+                from: 'corphassg@gmail.com', // Replace with your email
+                to: employee.email,
+                subject: 'Appointment Confirmation',
+                html: `
+                    <h1>Appointment Confirmation</h1>
+                    <p>Dear ${employee.name},</p>
+                    <p>Your appointment has been successfully booked!</p>
+                    <p><strong>Details:</strong></p>
+                    <ul>
+                        <li>Date: ${parsedDate.toDateString()}</li>
+                        <li>Time: ${time}</li>
+                        <li>Reason: ${reason}</li>
+                        <li>Special Requests: ${specialRequests || 'None'}</li>
+                    </ul>
+                    <p>Thank you for using our service.</p>
+                `,
+            };
+
+            // Send email
+            await transporter.sendMail(mailOptions);
+            console.log('Confirmation email sent to:', employee.email);
+        }
+
         res.send(` 
             <h1>Appointment booked successfully!</h1> 
             <p>Date: ${parsedDate.toDateString()}</p> 
             <p>Time: ${time}</p> 
             <p>Reason for Visit: ${reason}</p> 
             <p>Special Requests: ${specialRequests}</p> 
-            <a href="/">Back to Home</a> 
+            <a href="/check-employee-profile/${employee_id}">Back to Home</a> 
         `);
     } catch (error) {
         console.error("Error:", error.stack);
